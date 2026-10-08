@@ -33,4 +33,28 @@ export const resourceDecks = {
     ['Destructuring', 'Sacamos la prop directamente entre llaves.', 'function Boton({ texto }) {\n  return <button>{texto}</button>;\n}'],
     ['Mini desafío', 'Crea Tarjeta y envíale una prop titulo.', '<Tarjeta titulo="Mi proyecto" />'],
   ],
+  vitest: [
+    ['¿Qué es una prueba?', 'Es una comprobación automática: le preguntamos al código si hace lo que prometió.', 'sumar(2, 3) // esperamos 5'],
+    ['Instalamos Vitest', 'En la terminal del proyecto agregamos la herramienta de pruebas.', 'npm install -D vitest'],
+    ['La función a probar', 'Primero creamos una función pequeña y fácil de entender.', 'export function sumar(a, b) {\n  return a + b;\n}'],
+    ['Nuestro primer test', 'test describe el caso y expect indica el resultado esperado.', 'import { expect, test } from "vitest";\nimport { sumar } from "./sumar";\n\ntest("suma 2 y 3", () => {\n  expect(sumar(2, 3)).toBe(5);\n});'],
+    ['Ejecutar y mejorar', 'Vitest revisa el test. Si falla, lee el mensaje y corrige el código o la expectativa.', 'npm run test'],
+  ],
+  forms: [
+    ['¿Qué es un formulario?', 'Es una forma de pedir información: por ejemplo, un nombre, correo o mensaje.', '<form>\n  <input placeholder="Tu nombre" />\n  <button>Enviar</button>\n</form>'],
+    ['Guardar lo que escriben', 'useState crea un espacio para recordar el texto del input.', 'const [nombre, setNombre] = useState("");'],
+    ['Input controlado', 'value muestra el estado y onChange lo actualiza con cada tecla.', '<input\n  value={nombre}\n  onChange={(event) => setNombre(event.target.value)}\n/>'],
+    ['Enviar el formulario', 'onSubmit se ejecuta al presionar Enviar. preventDefault evita que la página se recargue.', 'function enviar(event) {\n  event.preventDefault();\n  console.log(nombre);\n}\n\n<form onSubmit={enviar}>...</form>'],
+    ['Validar antes de enviar', 'Comprobamos que el dato exista antes de continuar.', 'if (nombre.trim() === "") {\n  setError("Escribe tu nombre");\n  return;\n}'],
+    ['Mini desafío', 'Crea un formulario de contacto con nombre y correo. Muestra un mensaje cuando ambos estén completos.', '<p>¡Gracias, {nombre}!</p>'],
+  ],
+  responsive: [
+    ['¿Qué significa responsiva?', 'La misma interfaz se adapta para verse bien en celular, tablet y computador.', '/* Un mismo sitio, muchas pantallas */'],
+    ['El viewport', 'Esta etiqueta permite que el navegador móvil use el ancho real de su pantalla.', '<meta name="viewport" content="width=device-width, initial-scale=1.0" />'],
+    ['Mobile first', 'Primero escribimos el estilo para pantallas pequeñas. Es más fácil agregar espacio después.', '.tarjeta {\n  padding: 16px;\n  width: 100%;\n}'],
+    ['Diseño flexible', 'Flexbox permite ordenar elementos y dejar que usen el espacio disponible.', '.contenedor {\n  display: flex;\n  gap: 16px;\n  flex-wrap: wrap;\n}'],
+    ['Media queries', 'Una media query cambia estilos cuando la pantalla alcanza un tamaño definido.', '@media (min-width: 768px) {\n  .tarjeta {\n    width: 48%;\n  }\n}'],
+    ['Texto que se adapta', 'clamp crea texto que crece suavemente sin hacerse gigante.', 'h1 {\n  font-size: clamp(2rem, 5vw, 4rem);\n}'],
+    ['Mini desafío', 'Crea dos tarjetas: una columna en celular y dos columnas desde 768px.', '@media (min-width: 768px) {\n  .lista { grid-template-columns: 1fr 1fr; }\n}'],
+  ],
 };

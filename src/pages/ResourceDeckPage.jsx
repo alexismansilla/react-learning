@@ -11,7 +11,14 @@ const ResourceDeckPage = () => {
   const requestedSlide = Number(pathname.split('/')[2] || 1);
   const slideIndex = Math.min(Math.max(requestedSlide, 1), slides.length) - 1;
   const [title, description, code] = slides[slideIndex];
-  const exampleFile = resource.id === 'components-props'
+  const currentTopic = resource.topics[Math.min(slideIndex, resource.topics.length - 1)];
+  const exampleFile = resource.id === 'responsive'
+    ? (slideIndex === 1 ? 'index.html' : 'src/App.css')
+    : resource.id === 'forms'
+    ? 'src/pages/ContactoPage.jsx'
+    : resource.id === 'vitest'
+    ? (slideIndex === 1 || slideIndex === 4 ? 'Terminal (raíz del proyecto)' : slideIndex === 3 ? 'src/sumar.test.js' : 'src/sumar.js')
+    : resource.id === 'components-props'
     ? (slideIndex === 0 || slideIndex === 3 ? 'src/components/Boton.jsx' : 'src/App.jsx')
     : resource.id === 'props' && slideIndex === 2
       ? 'src/components/Saludo.jsx'
@@ -29,6 +36,10 @@ const ResourceDeckPage = () => {
         {slides.map((_, index) => <Link className={index === slideIndex ? 'deck-dots__active' : ''} to={index ? `${resource.to}/${index + 1}` : resource.to} key={index}>{index + 1}</Link>)}
       </div>
       <CodeBlock file={exampleFile}>{code}</CodeBlock>
+      <aside className="deepen-card">
+        <span>Para profundizar · {currentTopic}</span>
+        <p>{resource.guide[Math.min(slideIndex, resource.guide.length - 1)]}. Relaciona este paso con el ejemplo de código antes de continuar.</p>
+      </aside>
       <div className="deck-callout"><b>Explícalo así:</b> {slideIndex === 4 ? 'Ahora cambia una palabra del ejemplo y mira qué ocurre.' : `Esta parte enseña: ${resource.topics[slideIndex] ?? resource.topics[0]}. Lee el código de arriba hacia abajo y relaciónalo con la idea.`}</div>
       <div className="navigation">
         <Link to={previous}>{slideIndex ? '← Parte anterior' : '← Recursos'}</Link>

@@ -120,6 +120,9 @@ function Presentation() {
           <Route path="/jsx/*" element={<ResourceDeckPage />} />
           <Route path="/props/*" element={<ResourceDeckPage />} />
           <Route path="/componentes-props/*" element={<ResourceDeckPage />} />
+          <Route path="/vitest/*" element={<ResourceDeckPage />} />
+          <Route path="/formularios/*" element={<ResourceDeckPage />} />
+          <Route path="/interfaces-responsivas/*" element={<ResourceDeckPage />} />
         </Routes>
           </section>
         </main>
