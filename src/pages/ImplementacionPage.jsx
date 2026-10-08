@@ -10,15 +10,17 @@ const ImplementacionPage = () => {
       
       <p>Lee cada línea de arriba hacia abajo. No necesitas memorizarla todavía.</p>
 
-      <h2>La receta mínima</h2>
+      <h2>La receta completa</h2>
       <CodeBlock file="src/App.jsx">{`import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import HomePage from './pages/HomePage';
+import ContactPage from './pages/ContactPage';
 
 function App() {
   return (
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<HomePage />} />
+        <Route path="/contact" element={<ContactPage />} />
       </Routes>
     </BrowserRouter>
   );
@@ -26,10 +28,20 @@ function App() {
 
 export default App;`}</CodeBlock>
 
-      <h2>Una ruta nueva</h2>
+      <h2>El enlace que cambia de página</h2>
       <CodeBlock file="src/pages/HomePage.jsx">{`import { Link } from 'react-router-dom';
 
-<Link to="/contact">Ir a contacto</Link>`}</CodeBlock>
+function HomePage() {
+  return (
+    <main>
+      <h1>Inicio</h1>
+      <Link to="/contact">Ir a contacto</Link>
+    </main>
+  );
+}
+
+export default HomePage;`}</CodeBlock>
+      <p><code>Link</code> cambia la URL sin recargar toda la aplicación. Para moverte entre páginas de React usa <code>Link</code>; reserva <code>&lt;a href&gt;</code> para sitios externos.</p>
 
       <div className="navigation">
         <Link to="/estructura">← Anterior: Estructura del Proyecto</Link>
