@@ -1,0 +1,36 @@
+export const resourceDecks = {
+  state: [
+    ['¿Qué es estado?', 'Un dato que React recuerda aunque la pantalla se actualice.', 'const [count, setCount] = useState(0);'],
+    ['Valor inicial', 'El valor dentro de useState es el punto de partida del dato.', 'const [nombre, setNombre] = useState("");'],
+    ['Leer el dato', 'La primera palabra guarda el dato y se puede mostrar con llaves.', '<p>Clicks: {count}</p>'],
+    ['Cambiar el dato', 'La segunda palabra es la función que actualiza el estado.', 'setCount(count + 1);'],
+    ['Eventos', 'Un evento, como un clic, puede llamar a la función que actualiza.', '<button onClick={() => setCount(count + 1)}>+1</button>'],
+    ['Inputs controlados', 'El estado también guarda lo que una persona escribe en un input.', '<input\n  value={nombre}\n  onChange={(event) => setNombre(event.target.value)}\n/>'],
+    ['¿Qué es useEffect?', 'Sirve para hacer algo después de que React actualiza la pantalla.', 'useEffect(() => {\n  document.title = `Clicks: ${count}`;\n});'],
+    ['Dependencias', 'La lista entre corchetes indica cuándo debe ejecutarse el efecto.', 'useEffect(() => {\n  console.log("count cambió");\n}, [count]);'],
+    ['Sin repetir', 'Un arreglo vacío ejecuta el efecto una sola vez al abrir el componente.', 'useEffect(() => {\n  console.log("Componente listo");\n}, []);'],
+    ['Limpieza', 'Si creamos una tarea que sigue activa, la detenemos al salir.', 'useEffect(() => {\n  const id = setInterval(actualizar, 1000);\n  return () => clearInterval(id);\n}, []);'],
+    ['Mini desafío', 'Crea un input que salude con el nombre que escriba el usuario.', '<h1>Hola, {nombre}</h1>'],
+  ],
+  jsx: [
+    ['¿Qué es JSX?', 'Una forma de escribir la interfaz con etiquetas dentro de JavaScript.', '<h1>Hola, curso</h1>'],
+    ['Una regla', 'Un componente debe devolver un solo contenedor.', '<div>\n  <h1>Título</h1>\n  <p>Texto</p>\n</div>'],
+    ['Mostrar un dato', 'Las llaves permiten poner una variable en pantalla.', 'const nombre = "Sofía";\n<h1>Hola, {nombre}</h1>'],
+    ['Agregar estilos', 'En JSX escribimos className, no class.', '<p className="destacado">Importante</p>'],
+    ['Mini desafío', 'Crea un título y muestra el nombre de tu compañero.', 'const nombre = "...";\n<h1>Hola, {nombre}</h1>'],
+  ],
+  props: [
+    ['¿Qué es una prop?', 'Es un dato que un componente recibe desde otro componente.', '<Saludo nombre="Antonia" />'],
+    ['Componente padre', 'El padre envía el dato como un atributo.', '<App> → <Saludo nombre="Antonia" />'],
+    ['Componente hijo', 'El hijo recibe las props dentro de sus paréntesis.', 'function Saludo(props) {\n  return <h1>{props.nombre}</h1>;\n}'],
+    ['Reutilizar', 'La misma pieza puede recibir datos distintos.', '<Saludo nombre="Ana" />\n<Saludo nombre="Luis" />'],
+    ['Mini desafío', 'Envía una prop llamada curso a un componente Tarjeta.', '<Tarjeta curso="2° año" />'],
+  ],
+  'components-props': [
+    ['Un componente', 'Es una función que devuelve una parte de la interfaz.', 'function Boton() {\n  return <button>Guardar</button>;\n}'],
+    ['Usar la pieza', 'Escribimos el nombre del componente como una etiqueta.', '<Boton />'],
+    ['Enviar una prop', 'Podemos personalizar la pieza al usarla.', '<Boton texto="Enviar" />'],
+    ['Destructuring', 'Sacamos la prop directamente entre llaves.', 'function Boton({ texto }) {\n  return <button>{texto}</button>;\n}'],
+    ['Mini desafío', 'Crea Tarjeta y envíale una prop titulo.', '<Tarjeta titulo="Mi proyecto" />'],
+  ],
+};
