@@ -12,6 +12,8 @@ import ImplementacionPage from './pages/ImplementacionPage.jsx';
 import ResumenPage from './pages/ResumenPage.jsx';
 import DesafiosPage from './pages/DesafiosPage.jsx';
 import ResourceDeckPage from './pages/ResourceDeckPage.jsx';
+import ContactPage from './pages/ContactPage.jsx';
+import NotFoundPage from './pages/NotFoundPage.jsx';
 
 const sections = [
   { to: '/', label: 'Inicio', number: '01' },
@@ -27,12 +29,18 @@ const sections = [
 function Presentation() {
   const { pathname } = useLocation();
   const navigate = useNavigate();
-  const [isSidebarOpen, setIsSidebarOpen] = useState(true);
   const [isProjecting, setIsProjecting] = useState(false);
   const current = sections.find((section) => section.to === pathname) ?? sections[0];
   const resource = findResource(pathname);
   const isCatalog = pathname === '/';
-  const isRouterLesson = !isCatalog && (!resource || resource.id === 'router');
+  const isRouterLesson = sections.some((section) => section.to === pathname);
+  const isResourceDeck = Boolean(resourceDecks[resource?.id]);
+  const requestedPart = Number(pathname.split('/')[2] || 1);
+  const tutorialIndex = sections.findIndex((section) => section.to === pathname);
+  const progressSteps = isResourceDeck ? resourceDecks[resource.id] : sections;
+  const progressIndex = isResourceDeck
+    ? Math.min(Math.max(requestedPart, 1), progressSteps.length) - 1
+    : tutorialIndex >= 0 ? tutorialIndex : pathname === '/contact' ? 5 : 7;
 
   const movePresentation = (direction) => {
     if (isRouterLesson) {
@@ -74,38 +82,19 @@ function Presentation() {
           <span className="presentation__topic">{isRouterLesson ? current.label : (resource?.category ?? 'Biblioteca')}</span>
         </div>
       </header>
-      <div className={`presentation__body${!isSidebarOpen ? ' presentation__body--expanded' : ''}`}>
-        {isRouterLesson && <aside className={`presentation__rail${!isSidebarOpen ? ' presentation__rail--hidden' : ''}`} aria-label="Secciones del tutorial">
-          <p className="rail__label">Recorrido</p>
-          <nav>
-            {sections.map((section) => (
-              <NavLink
-                className={({ isActive }) => `rail__link${isActive ? ' rail__link--active' : ''}`}
-                end={section.to === '/'}
-                key={section.to}
-                to={section.to}
-              >
-                <span>{section.number}</span>{section.label}
-              </NavLink>
-            ))}
-          </nav>
-        </aside>}
+      <div className="presentation__body">
         <main className="presentation__stage">
           {isProjecting && <button className="projector-exit" type="button" onClick={() => setIsProjecting(false)}>× Salir de proyector</button>}
           {isProjecting && <span className="projector-hint">← → cambiar parte · Esc salir</span>}
-          {isRouterLesson && <button
-            className="sidebar-toggle"
-            type="button"
-            onClick={() => setIsSidebarOpen((open) => !open)}
-            aria-expanded={isSidebarOpen}
-            aria-label={isSidebarOpen ? 'Ocultar panel lateral' : 'Mostrar panel lateral'}
-          >
-            <span aria-hidden="true">{isSidebarOpen ? '←' : '→'}</span>
-            {isSidebarOpen ? 'Ocultar índice' : 'Mostrar índice'}
-          </button>}
           <div className="slide-indicator" aria-hidden="true">
             <span style={{ width: isRouterLesson ? `${(Number(current.number) / sections.length) * 100}%` : '100%' }} />
           </div>
+          <nav className="deck-dots deck-dots--top" aria-label="Partes de la presentación">
+            {progressSteps.map((_, index) => {
+              const to = isResourceDeck ? (index ? `${resource.to}/${index + 1}` : resource.to) : sections[index].to;
+              return <NavLink className={index === progressIndex ? 'deck-dots__active' : ''} to={to} key={to}>{index + 1}</NavLink>;
+            })}
+          </nav>
           <section className="slide">
         <Routes>
           <Route path="/" element={<HomePage />} />
@@ -116,13 +105,16 @@ function Presentation() {
           <Route path="/implementacion" element={<ImplementacionPage />} />
           <Route path="/resumen" element={<ResumenPage />} />
           <Route path="/desafios" element={<DesafiosPage />} />
+          <Route path="/contact" element={<ContactPage />} />
           <Route path="/usestate/*" element={<ResourceDeckPage />} />
           <Route path="/jsx/*" element={<ResourceDeckPage />} />
           <Route path="/props/*" element={<ResourceDeckPage />} />
           <Route path="/componentes-props/*" element={<ResourceDeckPage />} />
+          <Route path="/layouts-router/*" element={<ResourceDeckPage />} />
           <Route path="/vitest/*" element={<ResourceDeckPage />} />
           <Route path="/formularios/*" element={<ResourceDeckPage />} />
           <Route path="/interfaces-responsivas/*" element={<ResourceDeckPage />} />
+          <Route path="*" element={<NotFoundPage />} />
         </Routes>
           </section>
         </main>
