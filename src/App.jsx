@@ -112,6 +112,8 @@ function Presentation() {
           <Route path="/componentes-props/*" element={<ResourceDeckPage />} />
           <Route path="/layouts-router/*" element={<ResourceDeckPage />} />
           <Route path="/vitest/*" element={<ResourceDeckPage />} />
+          <Route path="/test-navbar/*" element={<ResourceDeckPage />} />
+          <Route path="/resend/*" element={<ResourceDeckPage />} />
           <Route path="/formularios/*" element={<ResourceDeckPage />} />
           <Route path="/interfaces-responsivas/*" element={<ResourceDeckPage />} />
           <Route path="*" element={<NotFoundPage />} />
