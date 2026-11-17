@@ -1,5 +1,5 @@
-const tokenPattern = /(\/\/[^\n]*|\/\*[\s\S]*?\*\/|(?:'[^']*'|"[^"]*")|<\/?[A-Za-z][^>]*>|\b(?:import|from|export|default|const|function|return|npm|install|test|expect|describe|@media)\b|\b\d+\b)/g;
-const isTokenPattern = /^(\/\/[^\n]*|\/\*[\s\S]*?\*\/|(?:'[^']*'|"[^"]*")|<\/?[A-Za-z][^>]*>|\b(?:import|from|export|default|const|function|return|npm|install|test|expect|describe|@media)\b|\b\d+\b)$/;
+const tokenPattern = /(\/\/[^\n]*|\/\*[\s\S]*?\*\/|(?:'[^']*'|"[^"]*")|<\/?[A-Za-z][^>]*>|\b(?:import|from|export|default|const|function|class|new|async|await|return|npm|install|test|expect|describe|@media)\b|\b\d+\b)/g;
+const isTokenPattern = /^(\/\/[^\n]*|\/\*[\s\S]*?\*\/|(?:'[^']*'|"[^"]*")|<\/?[A-Za-z][^>]*>|\b(?:import|from|export|default|const|function|class|new|async|await|return|npm|install|test|expect|describe|@media)\b|\b\d+\b)$/;
 
 function tokenClass(token) {
   if (token.startsWith('//') || token.startsWith('/*')) return 'code-block__comment';
